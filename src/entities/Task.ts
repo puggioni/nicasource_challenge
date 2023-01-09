@@ -1,26 +1,28 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm'
-import { User } from './User'
-@Entity('task')
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { User } from "./User";
+@Entity("task")
 export class Task {
   @PrimaryGeneratedColumn()
-  id: number
+  id: string;
 
   @Column()
-  title: string
+  title: string;
 
   @Column()
-  description: string
+  description: string;
+
+  @Column({
+    default: "PENDING",
+  })
+  status: string;
 
   @Column()
-  status: string
+  createdAt: Date;
 
   @Column()
-  createdAt: Date
-
-  @Column()
-  updatedAt: Date
+  updatedAt: Date;
 
   //RELATION WITH USER
   @ManyToOne((type) => User, (user) => user.tasks)
-  user: User
+  user: User;
 }

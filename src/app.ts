@@ -1,7 +1,7 @@
 import cookieParser from "cookie-parser";
 import express, { Application } from "express";
 import morgan from "morgan";
-import userRoutes from "./routes/user.routes";
+import routes from "./routes/index";
 
 export class App {
   private app: Application;
@@ -18,7 +18,7 @@ export class App {
     this.app.use(morgan(`dev`));
     this.app.use(cookieParser());
     this.app.use(express.json());
-    this.app.use(userRoutes);
+    this.app.use(routes);
   }
   async listen() {
     await this.app.listen(this.app.get("port"));
