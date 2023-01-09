@@ -1,14 +1,13 @@
-import { DataSource } from 'typeorm'
-import { User } from './entities/User'
-import { Task } from './entities/Task'
+import { DataSource } from "typeorm";
+
 export const AppDataSource = new DataSource({
-  type: 'mysql',
-  host: 'localhost',
-  username: 'root',
-  password: 'agustin',
+  type: "mysql",
+  host: "localhost",
+  username: "root",
+  password: "agustin",
   port: 3306,
-  database: 'nicasource',
-  entities: [User, Task],
+  database: "nicasource",
+  entities: ["src/entities/*.ts"],
   logging: true,
   synchronize: true,
-})
+});
