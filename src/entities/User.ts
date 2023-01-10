@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, BaseEntity } from 'typeorm'
 import { Task } from './Task'
 @Entity('users')
-export class User {
+export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number
 
@@ -17,11 +17,6 @@ export class User {
   @Column()
   password: string
 
-  @Column()
-  createdAt: Date
-
-  @Column()
-  updatedAt: Date
 
   //RELATION WITH TASKS
   @OneToMany((type) => Task, (task) => task.user)

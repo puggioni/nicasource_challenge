@@ -22,7 +22,7 @@ export const createTask = async (req: Request, res: Response) => {
   }
 
   try {
-    const task = await getRepository(Task).save({
+    const task = await (Task).save({
       title,
       description,
       user,
@@ -56,9 +56,9 @@ export const getTasks = async (req: Request, res: Response) => {
 
   try {
     const tasks = await getRepository(Task).find({
-      where: {
+   /*    where: {
         user: user,
-      },
+      }, */
     });
 
     return res.status(200).json({

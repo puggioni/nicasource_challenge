@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, BaseEntity } from "typeorm";
 import { User } from "./User";
 @Entity("task")
-export class Task {
+export class Task extends BaseEntity{
   @PrimaryGeneratedColumn()
   id: string;
 
