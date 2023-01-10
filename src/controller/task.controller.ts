@@ -140,7 +140,7 @@ export const deleteTask = async (req: Request, res: Response) => {
       });
     }
 
-    await getRepository(Task).delete({
+    await Task.delete({
       id: taskId,
     });
 
