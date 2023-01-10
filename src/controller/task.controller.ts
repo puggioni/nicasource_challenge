@@ -9,7 +9,7 @@ export const createTask = async (req: Request, res: Response) => {
   const token = req.cookies.accessToken;
   const { id } = verify(token, "access_secret") as any;
 
-  const user = await getRepository(User).findOne({
+  const user = await User.findOne({
     where: {
       id: id,
     },
@@ -22,7 +22,7 @@ export const createTask = async (req: Request, res: Response) => {
   }
 
   try {
-    const task = await (Task).save({
+    const task = await Task.save({
       title,
       description,
       user,
@@ -42,23 +42,11 @@ export const getTasks = async (req: Request, res: Response) => {
   const token = req.cookies.accessToken;
   const { id } = verify(token, "access_secret") as any;
 
-  const user = await getRepository(User).findOne({
-    where: {
-      id: id,
-    },
-  });
-
-  if (!user) {
-    return res.status(400).send({
-      message: "Invalid User",
-    });
-  }
-
   try {
-    const tasks = await getRepository(Task).find({
-   /*    where: {
-        user: user,
-      }, */
+    const tasks = await Task.find({
+      where: {
+        user: id,
+      },
     });
 
     return res.status(200).json({
@@ -76,7 +64,7 @@ export const updateTask = async (req: Request, res: Response) => {
   const token = req.cookies.accessToken;
   const { id } = verify(token, "access_secret") as any;
 
-  const user = await getRepository(User).findOne({
+  const user = await User.findOne({
     where: {
       id: id,
     },
@@ -89,7 +77,7 @@ export const updateTask = async (req: Request, res: Response) => {
   }
 
   try {
-    const task = await getRepository(Task).findOne({
+    const task = await Task.findOne({
       where: {
         id: req.params.id,
       },
@@ -101,7 +89,7 @@ export const updateTask = async (req: Request, res: Response) => {
       });
     }
 
-    await getRepository(Task).update(
+    await Task.update(
       {
         id: req.params.id,
       },
@@ -127,7 +115,7 @@ export const deleteTask = async (req: Request, res: Response) => {
   const { id } = verify(token, "access_secret") as any;
   const { taskId } = req.params;
 
-  const user = await getRepository(User).findOne({
+  const user = await User.findOne({
     where: {
       id: id,
     },
@@ -140,7 +128,7 @@ export const deleteTask = async (req: Request, res: Response) => {
   }
 
   try {
-    const task = await getRepository(Task).findOne({
+    const task = await Task.findOne({
       where: {
         id: taskId,
       },

@@ -1,26 +1,35 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, BaseEntity } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  BaseEntity,
+} from "typeorm";
 import { User } from "./User";
+
+export enum Status {
+  PENDING = "PENDING",
+  IN_PROGRESS = "IN_PROGRESS",
+  COMPLETED = "COMPLETED",
+}
+
 @Entity("task")
-export class Task extends BaseEntity{
+export class Task extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: string;
 
-  @Column()
+  @Column({})
   title: string;
 
   @Column()
   description: string;
 
   @Column({
-    default: "PENDING",
+    type: "enum",
+    enum: Status,
+    default: Status.PENDING,
   })
-  status: string;
-
-  @Column()
-  createdAt: Date;
-
-  @Column()
-  updatedAt: Date;
+  status: Status;
 
   //RELATION WITH USER
   @ManyToOne((type) => User, (user) => user.tasks)
